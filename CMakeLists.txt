@@ -41,17 +41,19 @@ find_package(OpenSSL REQUIRED)
 find_package(Protobufc REQUIRED)
 find_package(APR REQUIRED)
 find_package(APRUtil REQUIRED)
+find_package(Unisc REQUIRED)
 find_package(Phoebus)
 
 check_include_file("stdint.h" HAVE_STDINT_H)
 check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
 include_directories(${BDB_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${PROTOBUF_INCLUDE_DIR} 
-     ${APR_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR} )
+  ${APR_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR} ${UNISC_INCLUDE_DIR} )
 #SET(LIBS ${LIBS} ${BDB_LIBRARIES}  ${OPENSSL_LIBRARIES}
 #     ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBS} ${APR_LIBRARY} pthread)
 list(APPEND LIBS ${BDB_LIBRARIES}  ${OPENSSL_LIBRARIES}
-     ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBRARY} ${APR_LIBRARY} pthread dl m z)
+  ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBRARY} ${APR_LIBRARY} ${UNISC_LIBRARY} pthread dl m z ssl curl jansson)
+  #${CURL_LIBRARY} ${JANSOON_LIBRARY} pthread dl m z ssl)
 
 # config options
 if (PHOEBUS_FOUND)
@@ -92,7 +94,7 @@ WRAP_PROTO(PROTO_SRC "alog.proto")
 ADD_EXECUTABLE(ibp_server ibp_server.c server_lib.c  global_data.c
    parse_commands.c install_commands.c commands.c
    handle_commands.c resource_list.c subnet.c stack.c
-   buffer_transfer.c dns_cache.c transfer_stats.c
+   buffer_transfer.c dns_cache.c transfer_stats.c register_unis.c
    server_version.c lock_alloc.c activity_log.c thread_slots.c envelope.c
    envelope_net ${STRING_OBJS} ${RESOURCE_OBJS} ${NETWORK_OBJS} ${PROTO_SRC})
 

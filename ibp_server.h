@@ -35,6 +35,7 @@ http://www.accre.vanderbilt.edu
 #include <apr_thread_mutex.h>
 #include <apr_pools.h>
 #include <apr_time.h>
+#include <unis_registration.h>
 #include "resource_list.h"
 #include "network.h"
 #include "ibp_task.h"
@@ -267,6 +268,9 @@ void release_thread_slot(int slot);
 int reserve_thread_slot();
 void destroy_thread_slots();
 void init_thread_slots(int size);
+
+//*** Functions in unis_registration
+void register_unis(inip_file_t *kf);
 
 #endif
 
