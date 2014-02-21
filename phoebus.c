@@ -155,18 +155,6 @@ void phoebus_init(void)
       perror("libxsp_init(): failed");
       exit(errno);
    }
-   
-   if (getenv("PHOEBUS_PATH") != NULL) {
-      phoebus_path_set(global_phoebus, getenv("PHOEBUS_PATH"));
-      if (!global_phoebus->path) {
-	 log_printf(0, "phoebus_init: Parsing of variable PHOEBUS_PATH failed.  It needs to be a comma separated list of depot IDs\n");
-	 global_phoebus->p_count = 0;
-      }
-      log_printf(10, "phoebus_init: Using the gateway specified in environmental variable PHOEBUS_PATH: \"%s\"\n", getenv("PHOEBUS_PATH"));
-   } else if (getenv("PHOEBUS_GW") != NULL) {
-      phoebus_path_set(global_phoebus, getenv("PHOEBUS_GW"));
-      log_printf(10, "phoebus_init: Using the gateway specified in environmental variable PHOEBUS_GW: \"%s\"\n", getenv("PHOEBUS_GW"));
-   }
 }
 
 //***************************************************************
@@ -214,9 +202,9 @@ void phoebus_load_config(inip_file_t *kf)
      phoebus_path_set(global_phoebus, gateway);
      log_printf(10, "phoebus_init: Using the gateway specified in local config: %s\n", gateway);
      free(gateway);
-  } else if (!global_phoebus->path) {
-     log_printf(10, "phoebus_init: Error, no valid Phoebus Gateway specified!\n");
-     abort();
+  } else if (global_phoebus->path == NULL) {
+     log_printf(0, "phoebus_init: Warning, no valid Phoebus Gateway specified! All phoebus commands will fail unless user provides phoebus gateway.\n");
+     //todo: delete global_phoebus. set it to NULL
   }
 }
 
