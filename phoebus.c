@@ -46,7 +46,9 @@ phoebus_t *global_phoebus = NULL;
   void phoebus_init(void) { };
   void phoebus_destroy(void) { };
   int phoebus_print(char *buffer, int *used, int nbytes) { return(0); }
-  void phoebus_load_config(inip_file_t *kf) { };
+  void phoebus_load_config(inip_file_t *kf) { 
+    log_printf(0, "phoebus_init: Info, ibp server running without phoebus support..\n");
+  };
   void phoebus_path_set(phoebus_t *p, const char *path) { };
   void phoebus_path_destroy(phoebus_t *p) { };
   void phoebus_path_to_string(char *string, int max_size, phoebus_t *p) { string[0] = '\0'; };
