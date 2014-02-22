@@ -5,7 +5,7 @@
 # This module defines
 #    UNISC_INCLUDE_DIR - where to find libxsp_client.h
 #    UNISC_LIBRARIES - the libraries needed to use Phoebus.
-#    UNISC_FOUND - If false didn't find phoebus
+#    UNIS_C_FOUND - If false didn't find phoebus
 
 # Find the include path
 
@@ -24,14 +24,14 @@ if (JANSSON_LIBRARY)
 endif (JANSSON_LIBRARY)
 
 if (UNISC_LIBRARY AND UNISC_INCLUDE_DIR)
-    SET(UNISC_FOUND "YES")
+    SET(UNIS_C_FOUND "YES")
 endif (UNISC_LIBRARY AND UNISC_INCLUDE_DIR)
 
-if (UNISC_FOUND)
+if (UNIS_C_FOUND)
   message(STATUS "Found unis-c library: ${UNISC_LIBRARY}")
-else (UNISC_FOUND)
+else (UNIS_C_FOUND)
    message(STATUS "Could not find unis-c library")
-endif (UNISC_FOUND)
+endif (UNIS_C_FOUND)
 
 if (CURL_FOUND)
   message(STATUS "Found curl library: ${CURL_LIBRARY}")
@@ -49,7 +49,7 @@ MARK_AS_ADVANCED(
   UNISC_LIBRARY
   JANSSON_LIBRARY
   CURL_LIBRARY
-  UNISC_FOUND
+  UNIS_C_FOUND
   JANSSON_FOUND
   CURL_FOUND
 )

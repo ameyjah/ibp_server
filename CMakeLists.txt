@@ -41,19 +41,18 @@ find_package(OpenSSL REQUIRED)
 find_package(Protobufc REQUIRED)
 find_package(APR REQUIRED)
 find_package(APRUtil REQUIRED)
-find_package(Unisc REQUIRED)
+find_package(Unisc)
 find_package(Phoebus)
 
 check_include_file("stdint.h" HAVE_STDINT_H)
 check_include_file("inttypes.h" HAVE_INTTYPES_H)
 
 include_directories(${BDB_INCLUDE_DIR} ${OPENSSL_INCLUDE_DIR} ${PROTOBUF_INCLUDE_DIR} 
-  ${APR_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR} ${UNISC_INCLUDE_DIR} )
+  ${APR_INCLUDE_DIR} ${APRUTIL_INCLUDE_DIR})
 #SET(LIBS ${LIBS} ${BDB_LIBRARIES}  ${OPENSSL_LIBRARIES}
 #     ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBS} ${APR_LIBRARY} pthread)
 list(APPEND LIBS ${BDB_LIBRARIES}  ${OPENSSL_LIBRARIES}
-  ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBRARY} ${APR_LIBRARY} unis-c pthread dl m z ssl curl jansson)
-  #${CURL_LIBRARY} ${JANSOON_LIBRARY} pthread dl m z ssl)
+  ${CRYPTO_LIBRARIES} ${PROTOBUF_LIBRARY}  ${APRUTIL_LIBRARY} ${APR_LIBRARY} pthread dl m z ssl)
 
 # config options
 if (PHOEBUS_FOUND)
@@ -64,6 +63,15 @@ if (PHOEBUS_FOUND)
 else (PHOEBUS_FOUND)
   OPTION( _ENABLE_PHOEBUS "Enable Phoebus support" OFF )
 endif (PHOEBUS_FOUND)
+
+if (UNIS_C_FOUND)
+  set(UNIS_C_OPT "-D_ENABLE_UNIS_C")
+  OPTION( _ENABLE_UNIS_C "Enable Phoebus support" ON )
+  include_directories(${UNIS_C_INCLUDE_DIR})
+  list(APPEND LIBS unis-c curl jansson)
+else (UNIS_C_FOUND)
+  OPTION( _ENABLE_UNIS_C "Enable Phoebus support" OFF )
+endif (UNIS_C_FOUND)
 
 #message("flags=${CMAKE_C_FLAGS}")
 #message("flags_debug3=${CMAKE_C_FLAGS_DEBUG}")
