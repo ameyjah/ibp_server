@@ -34,7 +34,9 @@ http://www.accre.vanderbilt.edu
 //  install_commands - Install all the depot commans in the global function table
 //*************************************************************************
 
-void register_unis(inip_file_t *kf)
+static unis_config* config = NULL;
+
+void parse_unis_config(inip_file_t *kf)
 {
   /*name = "Phoebus Gateway";
     type = "phoebus";
@@ -61,7 +63,7 @@ void register_unis(inip_file_t *kf)
   ip_port->ip = strdup(unis_publicip);
   ip_port->port = unis_publicport;
 
-  unis_config* config = malloc(sizeof(unis_config));
+  config = malloc(sizeof(unis_config));
   config->name = unis_name;
   config->type = unis_type;
   config->endpoint = unis_endpoint;
@@ -72,15 +74,14 @@ void register_unis(inip_file_t *kf)
   config->refresh_timer = UNIS_REFRESH_TO;
 
   log_printf(5, "UNIS: %s:%s:%s%s:%d:%d:%d:%d", config->name, config->type, config->endpoint, config->ifaces.ip_ports[0].ip, config->ifaces.count, config->do_register, config->registration_interval, config->refresh_timer);
+}
 
-  if(unis_init(config) == 0) {
-    log_printf(5, "register_unis: unis registration is successful.");
-  } else {
-    log_printf(5, "register_unis: error in unis registration.");
+void start_unis_registration(){
+  if(config != NULL) {
+    if(unis_init(config) == 0) {
+      log_printf(5, "register_unis: unis registration is successful.");
+    } else {
+      log_printf(5, "register_unis: error in unis registration.");
+    }
   }
-
-  free(ip_port->ip); ip_port->ip = NULL;
-  free(ip_port); ip_port = NULL;
-  free(config); config = NULL;
-
 }

@@ -226,7 +226,6 @@ int parse_config(inip_file_t *keyfile, Config_t *cfg, int force_rebuild)
   server->alog_host = inip_get_string(keyfile, "server", "activity_host", server->alog_host);
   server->alog_port = inip_get_integer(keyfile, "server", "activity_port", server->alog_port);
 
-  //*** Save unis configuration
 
   if (force_rebuild == 0) {  //** The command line option overrides the file
      cfg->force_resource_rebuild = inip_get_integer(keyfile, "server", "force_resource_rebuild", cfg->force_resource_rebuild);
@@ -454,8 +453,8 @@ int main(int argc, const char **argv)
   //*** Install the commands: loads Vectable info and parses config options only ****
   install_commands(keyfile);
 
-  //register with unis
-  register_unis(keyfile);
+  //save unis configs
+  parse_unis_config(keyfile);
 
   inip_destroy(keyfile);   //Free the keyfile context
 
@@ -515,6 +514,8 @@ printf("ibp_server.c: STDOUT=STDERR=LOG_FD() dnoes not work!!!!!!!!!!!!!!!!!!!!!
 
   //*** Start the activity log ***
   alog_open();
+
+  start_unis_registration();
 
   server_loop(&config);     //***** Main processing loop ******
 

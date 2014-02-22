@@ -269,7 +269,8 @@ void destroy_thread_slots();
 void init_thread_slots(int size);
 
 //*** Functions in unis_registration
-void register_unis(inip_file_t *kf);
+void parse_unis_config(inip_file_t *kf);
+void start_unis_registration();
 
 #endif
 
