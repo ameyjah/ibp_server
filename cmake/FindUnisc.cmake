@@ -3,15 +3,15 @@
 # - Find Phoebus libraries and includes
 #
 # This module defines
-#    UNISC_INCLUDE_DIR - where to find libxsp_client.h
-#    UNISC_LIBRARIES - the libraries needed to use Phoebus.
+#    UNIS_C_INCLUDE_DIR - where to find libxsp_client.h
+#    UNIS_C_LIBRARIES - the libraries needed to use Phoebus.
 #    UNIS_C_FOUND - If false didn't find phoebus
 
 # Find the include path
 
-find_path(UNISC_INCLUDE_DIR unis_registration.h)
+find_path(UNIS_C_INCLUDE_DIR unis_registration.h)
 
-find_library(UNISC_LIBRARY NAMES unis-c curl jansson)
+find_library(UNIS_C_LIBRARY NAMES unis-c curl jansson)
 find_library(CURL_LIBRARY NAMES curl)
 find_library(JANSSON_LIBRARY NAMES jansson)
 
@@ -23,12 +23,12 @@ if (JANSSON_LIBRARY)
   SET(JANSSON_FOUND "YES")
 endif (JANSSON_LIBRARY)
 
-if (UNISC_LIBRARY AND UNISC_INCLUDE_DIR)
+if (UNIS_C_LIBRARY AND UNIS_C_INCLUDE_DIR)
     SET(UNIS_C_FOUND "YES")
-endif (UNISC_LIBRARY AND UNISC_INCLUDE_DIR)
+endif (UNIS_C_LIBRARY AND UNIS_C_INCLUDE_DIR)
 
 if (UNIS_C_FOUND)
-  message(STATUS "Found unis-c library: ${UNISC_LIBRARY}")
+  message(STATUS "Found unis-c library: ${UNIS_C_LIBRARY}")
 else (UNIS_C_FOUND)
    message(STATUS "Could not find unis-c library")
 endif (UNIS_C_FOUND)
@@ -46,7 +46,7 @@ else (JANSSON_FOUND)
 endif (JANSSON_FOUND)
 
 MARK_AS_ADVANCED(
-  UNISC_LIBRARY
+  UNIS_C_LIBRARY
   JANSSON_LIBRARY
   CURL_LIBRARY
   UNIS_C_FOUND
