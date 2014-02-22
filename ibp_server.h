@@ -35,7 +35,6 @@ http://www.accre.vanderbilt.edu
 #include <apr_thread_mutex.h>
 #include <apr_pools.h>
 #include <apr_time.h>
-#include <unis_registration.h>
 #include "resource_list.h"
 #include "network.h"
 #include "ibp_task.h"
