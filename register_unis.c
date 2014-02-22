@@ -1,7 +1,7 @@
 #include "ibp_server.h"
-#include <unis_registration.h>
 
 #ifdef _ENABLE_UNIS_C
+#include <unis_registration.h>
 // to store configurations
 static unis_config* config = NULL;
 
@@ -59,6 +59,6 @@ void start_unis_registration(){
 
 //dummy definitions
 void start_unis_registration(){}
-void parse_unis_config(){}
+void parse_unis_config(inip_file_t *kf){}
 
 #endif //_ENABLE_UNIS_C
